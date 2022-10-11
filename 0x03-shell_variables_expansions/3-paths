@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$PATH" | tr  -d: | wc -l
+echo $((`tr -dc : <<<"$PATH" | wc -c`+1))
