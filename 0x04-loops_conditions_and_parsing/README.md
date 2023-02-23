@@ -1,4 +1,4 @@
-# 0x04. Loops, Conditions, and Parsing
+# 0x04. Loops, conditions and parsing
 
 ## Learning objectives
 
