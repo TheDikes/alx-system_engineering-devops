@@ -4,4 +4,4 @@
 read -s -p "Enter passphrase for private key: " passphrase
 
 # Generate the key pair
-ssh-keygen -t rsa -b 4096 -f school -N "$passphrase"
+ssh-keygen -t rsa -b 4096 -f school -N betty
