@@ -1,3 +1,6 @@
+# Setting up my client confg file
+include stdlib
+
 file_line { 'Declare identity file':
   path => '/etc/ssh/ssh_config',
   line => '    IdentityFile ~/.ssh/school',
