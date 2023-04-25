@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# run Apache on docker container
+
+service apache2 restart
