@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# run Apache on docker container
+# run apache on designated container
 
 service apache2 restart
