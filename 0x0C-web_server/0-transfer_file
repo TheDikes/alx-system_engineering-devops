@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Bash script that transfers a file from client to a server
 
-path_to_file = $1
-ip_address = $2
-username = $3
-ssh_key = $4
+path_to_file=$1
+ip_address=$2
+username=$3
+ssh_key=$4
 
 if [ $# -lt 4 ]
 then
-	echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
 else
-	  scp -o StrictHostKeyChecking=no -i "$4" "$1" "$3"@"$2":~
+scp -o StrictHostKeyChecking=no -i "$4" "$1" "$3"@"$2":~
 if
