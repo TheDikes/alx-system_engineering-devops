@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Update Ubuntu packages
+sudo apt-get update
+
+# Install Nginx
+sudo apt-get install nginx -y
+
+# Set Nginx to listen on port 80
+sudo sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply changes
+sudo service nginx restart
+
+# Create an HTML file with the required text
+echo "<html><body>Hello World!</body></html>" | sudo tee /var/www/html/index.html >/dev/null
+
+# Verify that Nginx returns the expected response
+curl -s localhost | grep -q "Hello World!"
+
+if [ $? -eq 0 ]; then
+    echo "Nginx is correctly configured to return 'Hello World!' at the root."
+else
+    echo "Something went wrong. Nginx is not returning the expected response."
+fi
