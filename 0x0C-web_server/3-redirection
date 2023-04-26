@@ -1,25 +1,12 @@
-#!/bin/bash
-# Configure your Nginx server so that /redirect_me
-# is redirecting to another page.
-# The redirection must be a “301 Moved Permanently"
+#!/usr/bin/env bash
+# configures Nginx server so that /redirect_me is redirecting to another page
+# The redirection must be a “301 Moved Permanently”
 
-# Step 1: Install Nginx web server
-apt-get update
-apt-get install -y nginx
+sudo apt-get -y install nginx
 sudo bash -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
 
-# Step 2: Configure the redirect
-echo "server {
-    listen 80;
-    server_name localhost;
+redirect="\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
 
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
+sudo sed -i "53s|.*|$redirect|" /etc/nginx/sites-enabled/default
 
-    # Add other server blocks for your website here
-}" > /etc/nginx/sites-available/default
-
-# Step 3: Restart Nginx
-systemctl restart nginx
-
+sudo /etc/init.d/nginx restart
