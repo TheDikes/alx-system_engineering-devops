@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Setup haproxy on a new server
+
+sudo apt update
+sudo apt -y install haproxy
+
+# Make sure that HAproxy can be managed via an init script
+echo "ENABLED=1" > /etc/default/haproxy
+
+# Listen to web01 and web02 servers
+echo "
+	frontend http-in
+    		bind *:80
+    		mode http
+    		default_backend servers
+		listen load_balancer
+		bind *:80
+		mode http
+		option httpclose
+		option forwardfor
+
+	backend servers
+    		mode http
+    		balance roundrobin
+    		181145-web-01 3.90.83.109:80 check
+    		181145-web-02 35.168.1.86:80 check
+" >> /etc/haproxy/haproxy.cfg
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+sudo systemctl enable haproxy
+sudo systemctl start haproxy
