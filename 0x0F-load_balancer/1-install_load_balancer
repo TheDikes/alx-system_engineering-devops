@@ -22,8 +22,8 @@ echo "
 	backend servers
     		mode http
     		balance roundrobin
-    		181145-web-01 3.90.83.109:80 check
-    		181145-web-02 35.168.1.86:80 check
+    		181145-web-01 54.196.42.98:80 check
+    		181145-web-02 54.167.174.125:80 check
 " | sudo tee /etc/haproxy/haproxy.cfg
 sudo haproxy -c -f /etc/haproxy/haproxy.cfg
 sudo systemctl enable haproxy
