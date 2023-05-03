@@ -22,8 +22,8 @@ echo "ENABLED=1" | sudo tee /etc/default/haproxy
 	backend servers
     		mode http
     		balance roundrobin
-   server 183504-web-01 54.196.42.98 check
-   server 183504-web-02 54.167.174.125 check
+   server 183504-web-01 54.196.42.98:80 check
+   server 183504-web-02 54.167.174.125:80 check
 " | sudo tee /etc/haproxy/haproxy.cfg
 sudo haproxy -c -f /etc/haproxy/haproxy.cfg
 sudo systemctl enable haproxy
