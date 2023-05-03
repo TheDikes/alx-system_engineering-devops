@@ -1,43 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Setup haproxy on a new server
 
-# Install HAproxy
 sudo apt update
-sudo apt install -y haproxy
+sudo apt -y install haproxy
 
-# Configure HAproxy
-sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
-sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOT
-global
-    log /dev/log local0
-    log /dev/log local1 notice
-    chroot /var/lib/haproxy
-    stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
-    stats timeout 30s
-    user haproxy
-    group haproxy
-    daemon
+# Make sure that HAproxy can be managed via an init script
+echo "ENABLED=1" > /etc/default/haproxy
 
-defaults
-    log global
-    mode http
-    option httplog
-    option dontlognull
-    timeout connect 5000
-    timeout client 50000
-    timeout server 50000
+# Listen to web01 and web02 servers
+echo "
+	frontend http-in
+    		bind *:80
+    		mode http
+    		default_backend servers
+		listen load_balancer
+		bind *:80
+		mode http
+		option httpclose
+		option forwardfor
 
-frontend http_front
-    bind *:80
-    mode http
-    default_backend http_back
-
-backend http_back
-    mode http
-    balance roundrobin
-    server web-01 [STUDENT_ID]-web-01:80 check
-    server web-02 [STUDENT_ID]-web-02:80 check
-EOT
-
-# Restart HAproxy and enable on boot
-sudo systemctl restart haproxy
+	backend servers
+    		mode http
+    		balance roundrobin
+    		181145-web-01 3.90.83.109:80 check
+    		181145-web-02 35.168.1.86:80 check
+" >> /etc/haproxy/haproxy.cfg
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg
 sudo systemctl enable haproxy
+sudo systemctl start haproxy
