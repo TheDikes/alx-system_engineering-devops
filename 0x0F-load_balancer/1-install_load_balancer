@@ -5,7 +5,7 @@ sudo apt update
 sudo apt -y install haproxy
 
 # Make sure that HAproxy can be managed via an init script
-echo "ENABLED=1" > /etc/default/haproxy
+echo "ENABLED=1" | sudo tee /etc/default/haproxy
 
 # Listen to web01 and web02 servers
 echo "
