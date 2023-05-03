@@ -25,6 +25,4 @@ echo "
     		183504-web-01 54.196.42.98:80 check
     		183504-web-02 54.167.174.125:80 check
 " | sudo tee /etc/haproxy/haproxy.cfg
-sudo haproxy -c -f /etc/haproxy/haproxy.cfg
-sudo systemctl enable haproxy
-sudo systemctl start haproxy
+sudo service haproxy start
