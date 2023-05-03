@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Setup haproxy on a new server
 
-sudo apt update
-sudo apt -y install haproxy
+apt-get install -y software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-1.8
+apt-get -y update
+apt-get install -y haproxy=1.8.\*
 
 # Make sure that HAproxy can be managed via an init script
 echo "ENABLED=1" | sudo tee /etc/default/haproxy
@@ -17,6 +19,6 @@ echo "
    option forwardfor
    server 183504-web-01 54.196.42.98 check
    server 183504-web-02 54.167.174.125 check
-" >> /etc/haproxy/haproxy.cfg
+" | sudo tee /etc/haproxy/haproxy.cfg
 
 service haproxy start
