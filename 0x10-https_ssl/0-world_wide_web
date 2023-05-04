@@ -1,0 +1,22 @@
+#!/bin/bash
+# Usage: ./1-world_wide_web <domain> <subdomain>
+# Display information about subdomains.
+
+function audit_subdomain() {
+    domain=$1
+    subdomain=$2
+
+    if [[ -n $subdomain ]]; then
+        record_type=$(dig +short $subdomain.$domain | awk '{print $1}')
+        destination=$(dig +short $subdomain.$domain | awk '{print $2}')
+
+        echo "The subdomain $subdomain is a $record_type record and points to $destination"
+    else
+        audit_subdomain $domain www
+        audit_subdomain $domain lb-01
+        audit_subdomain $domain web-01
+        audit_subdomain $domain web-02
+    fi
+}
+
+audit_subdomain $1 $2
