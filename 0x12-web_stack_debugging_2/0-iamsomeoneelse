@@ -1,0 +1,5 @@
+#!/bin/bash
+#accepts one argument and runs the whoami command 
+#under the user passed as an argument
+
+sudo "$1" whoami
