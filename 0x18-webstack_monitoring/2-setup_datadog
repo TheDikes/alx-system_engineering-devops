@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-dashboard_id
+88s-yta-hm6
 # Path parameters
 export dashboard_id="CHANGE_ME"
 # Curl command
