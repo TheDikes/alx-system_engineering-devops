@@ -28,11 +28,11 @@ server {
 
     # Configure /2-hbnb route of AirBnB_clone_v4 as root location
     location / {
-        proxy_pass http://127.0.0.1:5003/2-hbnb;
+        proxy_pass http://127.0.0.1:5003/web_dynamic/2-hbnb.py;
     }
 
     # Serve static content for AirBnB_clone_v4
-    location /static {
+    location /web_dynamic/static/ {
         proxy_pass http://127.0.0.1:5003;
     }
 
