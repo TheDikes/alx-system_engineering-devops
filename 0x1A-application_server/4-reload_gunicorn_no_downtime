@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Gracefully reloads Gunicorn.
 
-pgrep aux |grep gunicorn |grep 4-reload_gunicorn_no_downtime | awk '{ print $2 }' |xargs kill -HUP
+ps aux |grep gunicorn |grep 4-reload_gunicorn_no_downtime | awk '{ print $2 }' |xargs kill -HUP
